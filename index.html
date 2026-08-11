@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Lina Date 💗</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root{--pink:#f04c83;--pink2:#f8a2bf;--light:#fff6fa;--ink:#253043;--line:#f2bfd0}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#fff;color:var(--ink)}
+body{display:flex;justify-content:center}.app{width:min(100%,430px);min-height:100vh;background:#fff;overflow:hidden;position:relative}
+.screen{display:none;min-height:100vh;flex-direction:column}.screen.active{display:flex}
+.photo{width:100%;height:52vh;min-height:300px;max-height:570px;object-fit:cover;display:block}.photo.cat{object-position:center 52%}.photo.girl{object-position:center 40%}.photo.otter{object-position:center 45%}
+.content{padding:18px 20px 30px;text-align:center}.title{font-size:22px;line-height:1.28;font-weight:800;margin:0 0 10px}.sub{font-size:14px;color:#7a8090;line-height:1.45;margin:0 0 16px}
+.btn{width:100%;border:0;border-radius:15px;background:var(--pink);color:#fff;font-size:17px;font-weight:800;padding:14px 16px;box-shadow:0 5px 12px #f04c8340}.btn.secondary{background:#fff;color:var(--pink);border:1px solid #f18bb0;box-shadow:none}.row{display:grid;grid-template-columns:1fr 1fr;gap:18px}.row .btn{border-radius:30px}
+.date-card{background:#fff6fa;border:1px solid #f7c7d7;border-radius:14px;padding:12px;margin-bottom:12px;text-align:left}.date-card label{font-size:12px;color:#777;display:block;margin-bottom:5px}.date-card input{width:100%;border:0;background:transparent;font-size:16px;color:#e94e82;outline:0}
+.times{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.time{border:1px solid var(--line);background:#fff6fa;border-radius:12px;padding:13px 4px;color:#e94e82;font-weight:700}.time.sel{background:#f7a3bf;color:#fff;border-color:#f7a3bf}
+.foods{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 16px 25px}.food{border:0;background:#f7a1bb;border-radius:12px 12px 0 0;overflow:hidden;padding:0;box-shadow:0 1px 0 #eee}.food img{width:100%;height:150px;object-fit:cover;display:block}.food span{display:block;background:#fff;padding:7px 2px;color:#6b6f79;font-size:12px;font-weight:700}.food.sel{outline:4px solid #f04c83}
+.ticket{margin:18px 18px 0;border-radius:14px;background:linear-gradient(#fff,#fff6f9);box-shadow:0 10px 30px #c88ca333;padding:24px 20px 18px;text-align:center;position:relative}.ticket:before,.ticket:after{content:"♥";position:absolute;color:#f04c83;font-size:22px}.ticket:before{left:12px;top:10px}.ticket:after{right:12px;top:10px}.ticket h2{font-family:Georgia,serif;margin:5px 0 8px;font-size:27px;color:#e94e82}.ticket .big{font-size:22px;font-weight:800;margin:8px 0}.ticket .meta{font-size:14px;line-height:1.7;color:#6c7180}.heart{font-size:28px;margin:6px}.footer{padding:16px 24px 30px;text-align:center;color:#697080;font-size:14px;line-height:1.55}.back{background:none;border:0;color:#e94e82;font-weight:700;padding:10px;margin-top:6px}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#263043;color:#fff;padding:10px 16px;border-radius:20px;font-size:13px;opacity:0;pointer-events:none;transition:.2s;z-index:10}.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="app">
+<section id="s1" class="screen active">
+  <img class="photo cat" src="assets/source1.png" alt="котик">
+  <div class="content"><p class="title">Lina, ¿quieres salir conmigo? 💌</p><div class="row"><button class="btn" onclick="go(2)">Sí, quiero! 💗</button><button class="btn secondary" onclick="nope()">No gracias!</button></div></div>
+</section>
+<section id="s2" class="screen">
+  <img class="photo girl" src="assets/source2.png" alt="фото">
+  <div class="content"><p class="title">¡Sé que aceptaste! 😎</p><p class="sub">Vamos a elegir la hora y el lugar para la cita 🧡</p><button class="btn" onclick="go(3)">¡Sí, vamos! 💯</button></div>
+</section>
+<section id="s3" class="screen">
+  <img class="photo otter" src="assets/source3.png" alt="котик">
+  <div class="content"><p class="title" style="font-size:17px">Entonces, Lina ... ¿Cuándo estás libre?</p><p class="sub" style="text-align:left;margin-bottom:5px">Дата</p><div class="date-card"><label>Выбери дату</label><input id="date" type="date" min="2026-08-12" value="2026-08-12"></div><p class="sub" style="text-align:left;margin-bottom:6px">Время</p><div class="times" id="times"></div><button class="btn" style="margin-top:14px" onclick="go(4)">Selecciona y presiona 💫</button></div>
+</section>
+<section id="s4" class="screen">
+  <div class="content" style="padding-top:40px"><p class="title">¿Qué quieres de comida o bebida?</p><p class="sub">¡Elige tu waiba! 🍴</p></div>
+  <div class="foods">
+    <button class="food" data-food="Суши" onclick="food(this)"><img src="assets/source4.png" style="object-position:0% 0%" alt="Суши"><span>🍣 Sushi</span></button>
+    <button class="food" data-food="Пицца" onclick="food(this)"><img src="assets/source4.png" style="object-position:100% 0%" alt="Пицца"><span>🍕 Pizza</span></button>
+    <button class="food" data-food="Бургер" onclick="food(this)"><img src="assets/source4.png" style="object-position:0% 50%" alt="Бургер"><span>🍔 Burger</span></button>
+    <button class="food" data-food="Вино" onclick="food(this)"><img src="assets/source4.png" style="object-position:100% 50%" alt="Вино"><span>🍷 Vino</span></button>
+    <button class="food" data-food="Мороженое" onclick="food(this)"><img src="assets/source4.png" style="object-position:0% 100%" alt="Мороженое"><span>🍦 Helado</span></button>
+    <button class="food" data-food="Хинкали" onclick="food(this)"><img src="assets/source4.png" style="object-position:100% 100%" alt="Хинкали"><span>🥟 Khinkali</span></button>
+  </div>
+  <div class="content"><button id="foodNext" class="btn" disabled onclick="finish()" style="opacity:.45">Продолжить 💗</button></div>
+</section>
+<section id="s5" class="screen">
+  <img class="photo" src="assets/source5.png" alt="билет" style="height:43vh;min-height:250px;object-position:center top">
+  <div class="ticket"><div class="heart">💗</div><h2>Билет на свидание</h2><div class="big" id="finalDate"></div><div class="meta">⏰ <span id="finalTime"></span><br>🍴 <span id="finalFood"></span></div><div class="heart">💕</div></div>
+  <div class="footer">Будь готова к <b>дате, которую я выберет</b> в «время», я приеду/заберу за тобой ✨<br><br>Дресс-код: платье + туфли/каблуки (на твой выбор)</div>
+</section>
+</div><div id="toast" class="toast"></div>
+<script>
+const tg=window.Telegram?.WebApp; if(tg){tg.ready();tg.expand();}
+let chosenTime='19:00', chosenFood='';
+function go(n){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById('s'+n).classList.add('active');window.scrollTo(0,0)}
+function nope(){show('Это не считается отказом 😌');setTimeout(()=>go(2),700)}
+function show(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1500)}
+const times=['18:00','18:30','19:00','19:30','20:00','20:30'];
+const tc=document.getElementById('times'); times.forEach(t=>{const b=document.createElement('button');b.className='time'+(t===chosenTime?' sel':'');b.textContent=t;b.onclick=()=>{chosenTime=t;document.querySelectorAll('.time').forEach(x=>x.classList.remove('sel'));b.classList.add('sel')};tc.appendChild(b)});
+function food(el){document.querySelectorAll('.food').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');chosenFood=el.dataset.food;const b=document.getElementById('foodNext');b.disabled=false;b.style.opacity=1}
+function finish(){const d=document.getElementById('date').value; if(!d||!chosenFood){show('Выбери дату и еду 💗');return}const dd=new Date(d+'T00:00:00');const formatted=dd.toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'});document.getElementById('finalDate').textContent='📅 '+formatted;document.getElementById('finalTime').textContent=chosenTime;document.getElementById('finalFood').textContent=chosenFood;go(5);if(tg){tg.sendData(JSON.stringify({date:d,time:chosenTime,food:chosenFood}));}}
+</script>
+</body></html>
