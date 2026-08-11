@@ -23,31 +23,31 @@ body{display:flex;justify-content:center}.app{width:min(100%,430px);min-height:1
 <body>
 <div class="app">
 <section id="s1" class="screen active">
-  <img class="photo cat" src="assets/source1.png" alt="котик">
+  <img class="photo cat" src="source1.png" alt="котик">
   <div class="content"><p class="title">Lina, ¿quieres salir conmigo? 💌</p><div class="row"><button class="btn" onclick="go(2)">Sí, quiero! 💗</button><button class="btn secondary" onclick="nope()">No gracias!</button></div></div>
 </section>
 <section id="s2" class="screen">
-  <img class="photo girl" src="assets/source2.png" alt="фото">
+  <img class="photo girl" src="source2.png" alt="фото">
   <div class="content"><p class="title">¡Sé que aceptaste! 😎</p><p class="sub">Vamos a elegir la hora y el lugar para la cita 🧡</p><button class="btn" onclick="go(3)">¡Sí, vamos! 💯</button></div>
 </section>
 <section id="s3" class="screen">
-  <img class="photo otter" src="assets/source3.png" alt="котик">
+  <img class="photo otter" src="source3.png" alt="котик">
   <div class="content"><p class="title" style="font-size:17px">Entonces, Lina ... ¿Cuándo estás libre?</p><p class="sub" style="text-align:left;margin-bottom:5px">Дата</p><div class="date-card"><label>Выбери дату</label><input id="date" type="date" min="2026-08-12" value="2026-08-12"></div><p class="sub" style="text-align:left;margin-bottom:6px">Время</p><div class="times" id="times"></div><button class="btn" style="margin-top:14px" onclick="go(4)">Selecciona y presiona 💫</button></div>
 </section>
 <section id="s4" class="screen">
   <div class="content" style="padding-top:40px"><p class="title">¿Qué quieres de comida o bebida?</p><p class="sub">¡Elige tu waiba! 🍴</p></div>
   <div class="foods">
-    <button class="food" data-food="Суши" onclick="food(this)"><img src="assets/source4.png" style="object-position:0% 0%" alt="Суши"><span>🍣 Sushi</span></button>
-    <button class="food" data-food="Пицца" onclick="food(this)"><img src="assets/source4.png" style="object-position:100% 0%" alt="Пицца"><span>🍕 Pizza</span></button>
-    <button class="food" data-food="Бургер" onclick="food(this)"><img src="assets/source4.png" style="object-position:0% 50%" alt="Бургер"><span>🍔 Burger</span></button>
-    <button class="food" data-food="Вино" onclick="food(this)"><img src="assets/source4.png" style="object-position:100% 50%" alt="Вино"><span>🍷 Vino</span></button>
-    <button class="food" data-food="Мороженое" onclick="food(this)"><img src="assets/source4.png" style="object-position:0% 100%" alt="Мороженое"><span>🍦 Helado</span></button>
-    <button class="food" data-food="Хинкали" onclick="food(this)"><img src="assets/source4.png" style="object-position:100% 100%" alt="Хинкали"><span>🥟 Khinkali</span></button>
+    <button class="food" data-food="Суши" onclick="food(this)"><img src="source4.png" style="object-position:0% 0%" alt="Суши"><span>🍣 Sushi</span></button>
+    <button class="food" data-food="Пицца" onclick="food(this)"><img src="source4.png" style="object-position:100% 0%" alt="Пицца"><span>🍕 Pizza</span></button>
+    <button class="food" data-food="Бургер" onclick="food(this)"><img src="source4.png" style="object-position:0% 50%" alt="Бургер"><span>🍔 Burger</span></button>
+    <button class="food" data-food="Вино" onclick="food(this)"><img src="source4.png" style="object-position:100% 50%" alt="Вино"><span>🍷 Vino</span></button>
+    <button class="food" data-food="Мороженое" onclick="food(this)"><img src="source4.png" style="object-position:0% 100%" alt="Мороженое"><span>🍦 Helado</span></button>
+    <button class="food" data-food="Хинкали" onclick="food(this)"><img src="source4.png" style="object-position:100% 100%" alt="Хинкали"><span>🥟 Khinkali</span></button>
   </div>
   <div class="content"><button id="foodNext" class="btn" disabled onclick="finish()" style="opacity:.45">Продолжить 💗</button></div>
 </section>
 <section id="s5" class="screen">
-  <img class="photo" src="assets/source5.png" alt="билет" style="height:43vh;min-height:250px;object-position:center top">
+  <img class="photo" src="source5.png" alt="билет" style="height:43vh;min-height:250px;object-position:center top">
   <div class="ticket"><div class="heart">💗</div><h2>Билет на свидание</h2><div class="big" id="finalDate"></div><div class="meta">⏰ <span id="finalTime"></span><br>🍴 <span id="finalFood"></span></div><div class="heart">💕</div></div>
   <div class="footer">Будь готова к <b>дате, которую я выберет</b> в «время», я приеду/заберу за тобой ✨<br><br>Дресс-код: платье + туфли/каблуки (на твой выбор)</div>
 </section>
