@@ -17,20 +17,6 @@ body{display:flex;justify-content:center}.app{width:min(100%,430px);min-height:1
 .times{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.time{border:1px solid var(--line);background:#fff6fa;border-radius:12px;padding:13px 4px;color:#e94e82;font-weight:700}.time.sel{background:#f7a3bf;color:#fff;border-color:#f7a3bf}
 .foods{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 16px 25px}.food{border:0;background:#f7a1bb;border-radius:12px 12px 0 0;overflow:hidden;padding:0;box-shadow:0 1px 0 #eee}.food img{width:100%;height:150px;object-fit:cover;display:block}.food span{display:block;background:#fff;padding:7px 2px;color:#6b6f79;font-size:12px;font-weight:700}.food.sel{outline:4px solid #f04c83}
 .ticket{margin:18px 18px 0;border-radius:14px;background:linear-gradient(#fff,#fff6f9);box-shadow:0 10px 30px #c88ca333;padding:24px 20px 18px;text-align:center;position:relative}.ticket:before,.ticket:after{content:"♥";position:absolute;color:#f04c83;font-size:22px}.ticket:before{left:12px;top:10px}.ticket:after{right:12px;top:10px}.ticket h2{font-family:Georgia,serif;margin:5px 0 8px;font-size:27px;color:#e94e82}.ticket .big{font-size:22px;font-weight:800;margin:8px 0}.ticket .meta{font-size:14px;line-height:1.7;color:#6c7180}.heart{font-size:28px;margin:6px}.footer{padding:16px 24px 30px;text-align:center;color:#697080;font-size:14px;line-height:1.55}.back{background:none;border:0;color:#e94e82;font-weight:700;padding:10px;margin-top:6px}
-#finalButton{
-  display:block;
-  width:100%;
-  margin:20px auto 0;
-  border:0;
-  border-radius:15px;
-  background:var(--pink);
-  color:#fff;
-  font-size:17px;
-  font-weight:800;
-  padding:14px 16px;
-  box-shadow:0 5px 12px #f04c8340;
-  cursor:pointer;
-}
 .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#263043;color:#fff;padding:10px 16px;border-radius:20px;font-size:13px;opacity:0;pointer-events:none;transition:.2s;z-index:10}.toast.show{opacity:1}
 </style>
 </head>
@@ -63,8 +49,26 @@ body{display:flex;justify-content:center}.app{width:min(100%,430px);min-height:1
 <section id="s5" class="screen">
   <img class="photo" src="Кот3.webp" alt="билет" style="height:43vh;min-height:250px;object-position:center top">
   <div class="ticket"><div class="heart">💗</div><h2>Билет на свидание</h2><div class="big" id="finalDate"></div><div class="meta">⏰ <span id="finalTime"></span><br>🍴 <span id="finalFood"></span></div><div class="heart">💕</div></div>
-  <div class="footer">Будь готова к <b>нашей встрече</b> в выбранную дату и время — я приеду за тобой ✨<br><br> 👗 <b>Dress code:</b><br> Для тебя — платье + туфли/каблуки 💗<br> Для меня — рубашка + брюки 🖤  <button id="finalButton" onclick="sendFinalData()">
-    До встречи 💗 </button> </div>
+  <div class="footer">Будь готова к <b>нашей встрече</b> в выбранную дату и время — я приеду за тобой ✨<br><br> 👗 <b>Dress code:</b><br> Для тебя — платье + туфли/каблуки 💗<br> Для меня — рубашка + брюки 🖤  <button
+  id="finalButton"
+  onclick="sendFinalData()"
+  style="
+    display:block;
+    width:100%;
+    margin:20px auto 0;
+    border:0;
+    border-radius:15px;
+    background:#f04c83;
+    color:#fff;
+    font-size:17px;
+    font-weight:800;
+    padding:14px 16px;
+    box-shadow:0 5px 12px #f04c8340;
+    cursor:pointer;
+  "
+>
+  До встречи 💗
+</button>
 </section>
 </div><div id="toast" class="toast"></div>
 <script>
