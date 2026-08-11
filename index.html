@@ -49,7 +49,8 @@ body{display:flex;justify-content:center}.app{width:min(100%,430px);min-height:1
 <section id="s5" class="screen">
   <img class="photo" src="Кот3.webp" alt="билет" style="height:43vh;min-height:250px;object-position:center top">
   <div class="ticket"><div class="heart">💗</div><h2>Билет на свидание</h2><div class="big" id="finalDate"></div><div class="meta">⏰ <span id="finalTime"></span><br>🍴 <span id="finalFood"></span></div><div class="heart">💕</div></div>
-  <div class="footer">Будь готова к <b>нашей встрече</b> в выбранную дату и время — я приеду за тобой ✨<br><br> 👗 <b>Dress code:</b><br> Для тебя — платье + туфли/каблуки 💗<br> Для меня — рубашка + брюки 🖤</div>
+  <div class="footer">Будь готова к <b>нашей встрече</b> в выбранную дату и время — я приеду за тобой ✨<br><br> 👗 <b>Dress code:</b><br> Для тебя — платье + туфли/каблуки 💗<br> Для меня — рубашка + брюки 🖤  <button id="finalButton" onclick="sendFinalData()">
+    До встречи 💗 </button> </div>
 </section>
 </div><div id="toast" class="toast"></div>
 <script>
@@ -91,34 +92,38 @@ function food(el){
     : 'Продолжить 💗';
 }
 function finish(){
-  const d = document.getElementById('date').value;
+    const d = document.getElementById('date').value;
 
-  if(!d || chosenFood.length === 0){
-    show('Выбери дату и хотя бы один вариант 💗');
-    return;
-  }
+    if(!d || chosenFood.length === 0){
+        show('Выбери дату и хотя бы один вариант 💗');
+        return;
+    }
 
-  const dd = new Date(d + 'T00:00:00');
+    const dd = new Date(d + 'T00:00:00');
 
-  const formatted = dd.toLocaleDateString('ru-RU',{
-    day:'numeric',
-    month:'long',
-    year:'numeric'
-  });
+    const formatted = dd.toLocaleDateString('ru-RU',{
+        day:'numeric',
+        month:'long',
+        year:'numeric'
+    });
 
-  document.getElementById('finalDate').textContent = '📅 ' + formatted;
-  document.getElementById('finalTime').textContent = chosenTime;
-  document.getElementById('finalFood').textContent = chosenFood.join(' + ');
+    document.getElementById('finalDate').textContent = '📅 ' + formatted;
+    document.getElementById('finalTime').textContent = chosenTime;
+    document.getElementById('finalFood').textContent = chosenFood.join(' + ');
 
-  go(5);
+    // Только показываем финальный билет
+    go(5);
+}
+function sendFinalData(){
+    const d = document.getElementById('date').value;
 
-  if(tg){
-    tg.sendData(JSON.stringify({
-      date: d,
-      time: chosenTime,
-      food: chosenFood
-    }));
-  }
+    if(tg){
+        tg.sendData(JSON.stringify({
+            date: d,
+            time: chosenTime,
+            food: chosenFood
+        }));
+    }
 }
 </script>
 </body></html>
