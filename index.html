@@ -54,9 +54,9 @@ body{display:flex;justify-content:center}.app{width:min(100%,430px);min-height:1
 </div><div id="toast" class="toast"></div>
 <script>
 const tg=window.Telegram?.WebApp; if(tg){tg.ready();tg.expand();}
-let chosenTime='19:00', chosenFood='';
+let chosenTime='19:00', chosenFood=[];
 function go(n){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById('s'+n).classList.add('active');window.scrollTo(0,0)}
-function nope(){show('Это не считается отказом 😌');setTimeout(()=>go(2),700)}
+function nope(){show('Это не считается отказом бебебе😌');setTimeout(()=>go(2),700)}
 function show(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1500)}
 const times=[
   '12:00',
@@ -71,7 +71,54 @@ const times=[
   '21:00'
 ];
 const tc=document.getElementById('times'); times.forEach(t=>{const b=document.createElement('button');b.className='time'+(t===chosenTime?' sel':'');b.textContent=t;b.onclick=()=>{chosenTime=t;document.querySelectorAll('.time').forEach(x=>x.classList.remove('sel'));b.classList.add('sel')};tc.appendChild(b)});
-function food(el){document.querySelectorAll('.food').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');chosenFood=el.dataset.food;const b=document.getElementById('foodNext');b.disabled=false;b.style.opacity=1}
-function finish(){const d=document.getElementById('date').value; if(!d||!chosenFood){show('Выбери дату и еду 💗');return}const dd=new Date(d+'T00:00:00');const formatted=dd.toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'});document.getElementById('finalDate').textContent='📅 '+formatted;document.getElementById('finalTime').textContent=chosenTime;document.getElementById('finalFood').textContent=chosenFood;go(5);if(tg){tg.sendData(JSON.stringify({date:d,time:chosenTime,food:chosenFood}));}}
+function food(el){
+  const value = el.dataset.food;
+
+  if (chosenFood.includes(value)) {
+    chosenFood = chosenFood.filter(x => x !== value);
+    el.classList.remove('sel');
+  } else {
+    chosenFood.push(value);
+    el.classList.add('sel');
+  }
+
+  const b = document.getElementById('foodNext');
+  b.disabled = chosenFood.length === 0;
+  b.style.opacity = chosenFood.length === 0 ? .45 : 1;
+
+  b.textContent = chosenFood.length
+    ? `Выбрано: ${chosenFood.length} 💗`
+    : 'Продолжить 💗';
+}
+function finish(){
+  const d = document.getElementById('date').value;
+
+  if(!d || chosenFood.length === 0){
+    show('Выбери дату и хотя бы один вариант 💗');
+    return;
+  }
+
+  const dd = new Date(d + 'T00:00:00');
+
+  const formatted = dd.toLocaleDateString('ru-RU',{
+    day:'numeric',
+    month:'long',
+    year:'numeric'
+  });
+
+  document.getElementById('finalDate').textContent = '📅 ' + formatted;
+  document.getElementById('finalTime').textContent = chosenTime;
+  document.getElementById('finalFood').textContent = chosenFood.join(' + ');
+
+  go(5);
+
+  if(tg){
+    tg.sendData(JSON.stringify({
+      date: d,
+      time: chosenTime,
+      food: chosenFood
+    }));
+  }
+}
 </script>
 </body></html>
